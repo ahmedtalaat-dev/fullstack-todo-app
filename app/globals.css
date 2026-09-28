@@ -1,26 +1,250 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --border: #e2e8f0;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-border: var(--border);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  background: #f8fafc;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  transition: all 0.18s ease;
+}
+
+.button-primary,
+.button-secondary,
+.button-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.65rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button-primary {
+  background: #2563eb;
+  color: white;
+  box-shadow: 0 5px 14px rgb(37 99 235 / 18%);
+}
+
+.button-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.button-primary:disabled {
+  cursor: wait;
+  opacity: 0.55;
+  transform: none;
+}
+
+.button-secondary {
+  border: 1px solid #e2e8f0;
+  background: white;
+  color: #334155;
+}
+
+.button-secondary:hover {
+  background: #f8fafc;
+}
+
+.button-ghost {
+  color: #64748b;
+}
+
+.button-ghost:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.icon-button {
+  display: inline-flex;
+  size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  background: #f1f5f9;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field em {
+  color: #94a3b8;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.input,
+.input-wrap {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65rem;
+  background: white;
+  color: #0f172a;
+  outline: none;
+}
+
+.input {
+  padding: 0.7rem 0.8rem;
+}
+
+.input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.8rem;
+  color: #94a3b8;
+}
+
+.input-wrap input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  padding: 0.7rem 0;
+  outline: none;
+  color: #0f172a;
+}
+
+.input:focus,
+.input-wrap:focus-within {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 12%);
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.status-pending {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.status-in-progress {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.status-completed {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.page-button {
+  display: inline-flex;
+  size: 2rem;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  background: white;
+  color: #64748b;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.page-button:hover:not(:disabled) {
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+
+.page-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.page-active {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: white;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #eff6ff;
+  padding: 0.4rem 0.75rem;
+  color: #2563eb;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(15 23 42 / 38%);
+  padding: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .status {
+    padding: 0.25rem 0.4rem;
+    font-size: 0.65rem;
+  }
 }
