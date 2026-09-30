@@ -1,6 +1,8 @@
-import { useAuth } from "@/context/AuthContext";
+"use client";
+
 import Link from "next/link";
 import { Check, LogOut } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
@@ -17,7 +19,6 @@ export default function Navbar() {
           </span>
           TodoApp
         </Link>
-
         {isAuthenticated ? (
           <button onClick={logout} className="button-ghost">
             <LogOut size={16} /> Sign out
@@ -27,7 +28,6 @@ export default function Navbar() {
             <Link href="/login" className="button-ghost">
               Log in
             </Link>
-
             <Link href="/register" className="button-primary">
               Sign up
             </Link>
