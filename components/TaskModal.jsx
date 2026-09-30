@@ -1,4 +1,11 @@
+"use client";
+
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { createTask, updateTask } from "@/lib/tasks";
+import { initialForm } from "./constant/tasks";
 
 export default function TaskModal({ task, onClose, onSaved }) {
   const { token } = useAuth();
@@ -11,9 +18,9 @@ export default function TaskModal({ task, onClose, onSaved }) {
         }
       : initialForm,
   );
-
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
   async function submit(e) {
     e.preventDefault();
     if (!form.title.trim()) return setError("Give your task a title.");
@@ -29,6 +36,7 @@ export default function TaskModal({ task, onClose, onSaved }) {
       setBusy(false);
     }
   }
+
   return (
     <AnimatePresence>
       <motion.div
@@ -54,14 +62,12 @@ export default function TaskModal({ task, onClose, onSaved }) {
               >
                 {task ? "Edit task" : "Add a new task"}
               </h2>
-
               <p className="mt-1 text-sm text-slate-500">
                 {task
                   ? "Make a quick update to your task."
                   : "Capture what needs to get done."}
               </p>
             </div>
-
             <button
               className="icon-button"
               onClick={onClose}
@@ -70,7 +76,6 @@ export default function TaskModal({ task, onClose, onSaved }) {
               <X size={18} />
             </button>
           </div>
-
           <form onSubmit={submit} className="flex flex-col gap-4">
             <label className="field">
               <span>Title</span>
@@ -116,7 +121,6 @@ export default function TaskModal({ task, onClose, onSaved }) {
               >
                 Cancel
               </button>
-
               <button
                 disabled={busy}
                 className="button-primary flex-1 justify-center"
